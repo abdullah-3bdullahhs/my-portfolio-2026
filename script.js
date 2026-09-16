@@ -61,7 +61,7 @@ function applySlideTheme(theme) {
 // Initial theme setup
 applySlideTheme(slideThemes[0]);
 
-// Smooth IntersectionObserver for section slide transitions
+// Native zero-overhead IntersectionObserver for responsive 60fps section slide transitions
 const slideObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -69,41 +69,12 @@ const slideObserver = new IntersectionObserver((entries) => {
             if (found) applySlideTheme(found);
         }
     });
-}, { rootMargin: '-20% 0px -40% 0px', threshold: [0.1, 0.3] });
+}, { rootMargin: '-15% 0px -30% 0px', threshold: 0.15 });
 
 slideThemes.forEach(s => {
     const el = document.getElementById(s.id);
     if (el) slideObserver.observe(el);
 });
-
-let ticking = false;
-window.addEventListener('scroll', () => {
-    if (!ticking) {
-        requestAnimationFrame(() => {
-            const scrollY = window.scrollY;
-            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-            const progress = Math.min(Math.max(scrollY / (docHeight || 1), 0), 1);
-            
-            // Backup detection on rapid scroll
-            let active = slideThemes[0];
-            for (const s of slideThemes) {
-                const el = document.getElementById(s.id);
-                if (el) {
-                    const rect = el.getBoundingClientRect();
-                    if (rect.top <= window.innerHeight * 0.45) {
-                        active = s;
-                    }
-                }
-            }
-            applySlideTheme(active);
-            
-            document.documentElement.style.setProperty('--scroll-hue', `${Math.round(progress * 100)}deg`);
-            document.documentElement.style.setProperty('--scroll-y', `${Math.round(scrollY * 0.18)}px`);
-            ticking = false;
-        });
-        ticking = true;
-    }
-}, { passive: true });
 
 // ==========================================
 // NAVIGATION PANEL & CLICK HIGHLIGHTS

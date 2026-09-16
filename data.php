@@ -411,12 +411,13 @@ $projects = [
         'tags' => ['ACADEMIC', 'POSTER DESIGN', 'JUST'],
         'media' => [
             'type' => 'image',
-            'src' => 'assets/achievements/Uni/poster/DV132_FinalProject_[Abdullah Hassan Jamal]_[Final Poster].jpg',
+            'src' => 'assets/achievements/Uni/poster/DV132_Final_Poster.jpg',
             'alt' => 'DV132 Final Project Watch Poster',
         ],
         'images' => [
-            'assets/achievements/Uni/poster/DV132_FinalProject_[Abdullah Hassan Jamal]_[Final Poster].jpg',
-            'assets/achievements/Uni/mesh tool/DV132_FinalProject_[Abdullah Hassan Jamal]_[Watch final].png'
+            'assets/achievements/Uni/poster/DV132_Final_Poster.jpg',
+            'assets/achievements/Uni/Proccess poster/DV132_Process_Poster.png',
+            'assets/achievements/Uni/mesh tool/DV132_Watch_final.png'
         ],
     ],
     'watch-mesh-tool' => [
@@ -429,12 +430,12 @@ $projects = [
         'tags' => ['ACADEMIC', 'MESH TOOL', 'VECTOR REALISM'],
         'media' => [
             'type' => 'image',
-            'src' => 'assets/achievements/Uni/mesh tool/DV132_FinalProject_[Abdullah Hassan Jamal]_[Watch final].png',
+            'src' => 'assets/achievements/Uni/mesh tool/DV132_Watch_final.png',
             'alt' => 'DV132 Mesh Tool Watch Illustration',
         ],
         'images' => [
-            'assets/achievements/Uni/mesh tool/DV132_FinalProject_[Abdullah Hassan Jamal]_[Watch final].png',
-            'assets/achievements/Uni/poster/DV132_FinalProject_[Abdullah Hassan Jamal]_[Final Poster].jpg'
+            'assets/achievements/Uni/mesh tool/DV132_Watch_final.png',
+            'assets/achievements/Uni/poster/DV132_Final_Poster.jpg'
         ],
     ],
     'city-type-study' => [
@@ -546,7 +547,7 @@ $services = [
         'tag' => 'MOTION & MULTIMEDIA',
         'title' => 'MOTION & MULTIMEDIA',
         'desc' => 'Short-form visual hooks, video editing, kinetic motion graphics, and sound sync.',
-        'image' => 'assets/achievements/Uni/poster/DV132_FinalProject_[Abdullah Hassan Jamal]_[Final Poster].jpg',
+        'image' => 'assets/achievements/Uni/poster/DV132_Final_Poster.jpg',
         'alt' => 'Motion and Multimedia Showcase',
     ],
 ];
