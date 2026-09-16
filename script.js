@@ -39,13 +39,20 @@ const slideThemes = [
 ];
 
 let currentThemeId = '';
+let isNavigating = false;
+let navTimer = null;
+
 function applySlideTheme(theme) {
     if (!theme || currentThemeId === theme.id) return;
     currentThemeId = theme.id;
-    const root = document.documentElement;
-    root.style.setProperty('--slide-color-1', theme.c1);
-    root.style.setProperty('--slide-color-2', theme.c2);
-    root.style.setProperty('--slide-color-3', theme.c3);
+    
+    // Target .ambient-lights container directly to avoid document-wide style invalidation
+    const ambient = qs('.ambient-lights');
+    if (ambient) {
+        ambient.style.setProperty('--ambient-1', theme.c1);
+        ambient.style.setProperty('--ambient-2', theme.c2);
+        ambient.style.setProperty('--ambient-3', theme.c3);
+    }
     
     // Sync active menu link
     qsa('.menu-item').forEach(item => {
@@ -63,6 +70,7 @@ applySlideTheme(slideThemes[0]);
 
 // Native zero-overhead IntersectionObserver for responsive 60fps section slide transitions
 const slideObserver = new IntersectionObserver((entries) => {
+    if (isNavigating) return;
     entries.forEach(entry => {
         if (entry.isIntersecting) {
             const found = slideThemes.find(s => s.id === entry.target.id);
@@ -87,9 +95,22 @@ if (closeBtn) closeBtn.onclick = () => panel && panel.classList.remove('open');
 
 qsa('.menu-item').forEach(item => {
     item.addEventListener('click', () => {
+        const href = item.getAttribute('href');
+        const targetId = href ? href.replace('#', '') : '';
+        const found = slideThemes.find(s => s.id === targetId);
+
         qsa('.menu-item').forEach(i => i.classList.remove('active'));
         item.classList.add('active');
         if (panel) panel.classList.remove('open');
+
+        if (found) {
+            isNavigating = true;
+            applySlideTheme(found);
+            clearTimeout(navTimer);
+            navTimer = setTimeout(() => {
+                isNavigating = false;
+            }, 800);
+        }
     });
 });
 

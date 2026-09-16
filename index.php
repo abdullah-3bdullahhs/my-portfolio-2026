@@ -14,13 +14,11 @@ require_once __DIR__ . '/data.php';
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Dynamically Animated Ambient Studio Lights (Moving & Breathing) -->
+    <!-- Dynamically Animated Ambient Studio Lights (Hardware-Accelerated, Feathered) -->
     <div class="ambient-lights" aria-hidden="true">
-        <div class="light light-orange"></div>
-        <div class="light light-purple"></div>
-        <div class="light light-cyan"></div>
-        <div class="light light-magenta"></div>
-        <div class="light light-amber-glow"></div>
+        <div class="light light-primary"></div>
+        <div class="light light-secondary"></div>
+        <div class="light light-accent"></div>
     </div>
 
     <!-- Fast-Loading Minimal Transition Loader with User Logo -->
@@ -68,15 +66,17 @@ require_once __DIR__ . '/data.php';
             <div class="hero-light hero-light-violet"></div>
             <div class="hero-light hero-light-cyan"></div>
 
-            <div class="hero-art">
-                <!-- Text in the middle of the circles -->
-                <div class="art-badge">ABDULLAH PORTFOLIO <span>·</span> 2026</div>
+            <div class="hero-art" aria-hidden="true">
                 <div class="ring r1"></div>
                 <div class="ring r2"></div>
                 <div class="ring r3"></div>
             </div>
 
             <div class="hero-copy reveal">
+                <div class="hero-badge">
+                    <span class="badge-dot"></span>
+                    <span class="badge-text"><?= htmlspecialchars($hero['badge'], ENT_QUOTES, 'UTF-8') ?></span>
+                </div>
                 <p class="kicker"><?= htmlspecialchars($hero['kicker'], ENT_QUOTES, 'UTF-8') ?></p>
                 <h1><?= htmlspecialchars($hero['first_name'], ENT_QUOTES, 'UTF-8') ?><br><span><?= htmlspecialchars($hero['middle_name'], ENT_QUOTES, 'UTF-8') ?></span><br><?= htmlspecialchars($hero['last_name'], ENT_QUOTES, 'UTF-8') ?></h1>
                 <div class="hero-bottom">

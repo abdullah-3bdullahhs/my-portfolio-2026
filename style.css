@@ -31,131 +31,73 @@ body {
 }
 
 /* ==========================================================
-   ANIMATED & MOVING AMBIENT LIGHTS (Smooth, 60fps GPU-Driven)
+   ANIMATED & MOVING AMBIENT LIGHTS (Hardware-Accelerated 60fps)
    ========================================================== */
-/* Ambient Studio Light Layers — Smooth Couple-Color Slide Transitions */
-@property --slide-color-1 {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: rgba(255, 106, 26, 0.45);
-}
-
-@property --slide-color-2 {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: rgba(139, 40, 238, 0.45);
-}
-
-@property --slide-color-3 {
-    syntax: '<color>';
-    inherits: true;
-    initial-value: rgba(56, 189, 248, 0.25);
-}
-
-:root {
-    --slide-color-1: rgba(255, 106, 26, 0.45);
-    --slide-color-2: rgba(139, 40, 238, 0.45);
-    --slide-color-3: rgba(56, 189, 248, 0.25);
-    transition: --slide-color-1 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-                --slide-color-2 0.6s cubic-bezier(0.2, 0.8, 0.2, 1),
-                --slide-color-3 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-
 .ambient-lights {
     position: fixed;
     inset: 0;
     pointer-events: none;
     z-index: 0;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 35%, rgba(18, 18, 26, 0.45) 0%, rgba(7, 7, 9, 0.95) 85%);
+    background: #070709;
     contain: strict;
+    --ambient-1: rgba(255, 106, 26, 0.42);
+    --ambient-2: rgba(139, 40, 238, 0.42);
+    --ambient-3: rgba(56, 189, 248, 0.25);
 }
 
 .light {
     position: absolute;
     border-radius: 50%;
-    filter: blur(65px);
     will-change: transform;
-    transform: translateZ(0);
-    transition: background 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease;
-    contain: layout paint;
+    transform: translate3d(0, 0, 0);
+    pointer-events: none;
+    transition: opacity 0.5s ease;
 }
 
-.light-orange {
-    width: 680px;
-    height: 680px;
-    background: radial-gradient(circle, var(--slide-color-1) 0%, rgba(0, 0, 0, 0) 70%);
+.light-primary {
+    width: 720px;
+    height: 720px;
+    background: radial-gradient(circle, var(--ambient-1) 0%, rgba(255, 106, 26, 0.15) 35%, rgba(0, 0, 0, 0) 70%);
     top: -120px;
-    left: -160px;
-    animation: moveOrange 24s infinite alternate ease-in-out;
+    left: -140px;
+    animation: movePrimary 24s infinite alternate ease-in-out;
 }
 
-.light-purple {
-    width: 740px;
-    height: 740px;
-    background: radial-gradient(circle, var(--slide-color-2) 0%, rgba(0, 0, 0, 0) 70%);
-    top: 20px;
-    right: -180px;
-    animation: movePurple 28s infinite alternate ease-in-out;
+.light-secondary {
+    width: 760px;
+    height: 760px;
+    background: radial-gradient(circle, var(--ambient-2) 0%, rgba(139, 40, 238, 0.15) 38%, rgba(0, 0, 0, 0) 70%);
+    top: 15%;
+    right: -160px;
+    animation: moveSecondary 28s infinite alternate ease-in-out;
 }
 
-.light-cyan {
-    width: 580px;
-    height: 580px;
-    background: radial-gradient(circle, var(--slide-color-3) 0%, rgba(0, 0, 0, 0) 70%);
-    bottom: 25%;
-    right: 12%;
-    animation: moveCyan 32s infinite alternate ease-in-out;
-}
-
-.light-magenta {
-    width: 540px;
-    height: 540px;
-    background: radial-gradient(circle, var(--slide-color-2) 0%, rgba(0, 0, 0, 0) 70%);
-    bottom: 8%;
-    left: 20%;
-    opacity: 0.75;
-    animation: moveMagenta 22s infinite alternate ease-in-out;
-}
-
-.light-amber-glow {
+.light-accent {
     width: 600px;
     height: 600px;
-    background: radial-gradient(circle, var(--slide-color-1) 0%, rgba(0, 0, 0, 0) 70%);
-    top: 48%;
-    left: -8%;
-    opacity: 0.7;
-    animation: moveAmber 24s infinite alternate ease-in-out;
+    background: radial-gradient(circle, var(--ambient-3) 0%, rgba(56, 189, 248, 0.1) 40%, rgba(0, 0, 0, 0) 70%);
+    bottom: 8%;
+    left: 15%;
+    animation: moveAccent 32s infinite alternate ease-in-out;
 }
 
-@keyframes moveOrange {
+@keyframes movePrimary {
     0%   { transform: translate3d(0, 0, 0) scale(1); }
-    50%  { transform: translate3d(130px, 90px, 0) scale(1.16); }
-    100% { transform: translate3d(-60px, 150px, 0) scale(0.92); }
+    50%  { transform: translate3d(120px, 80px, 0) scale(1.14); }
+    100% { transform: translate3d(-50px, 130px, 0) scale(0.92); }
 }
 
-@keyframes movePurple {
+@keyframes moveSecondary {
     0%   { transform: translate3d(0, 0, 0) scale(1); }
-    50%  { transform: translate3d(-120px, 130px, 0) scale(1.18); }
-    100% { transform: translate3d(90px, -60px, 0) scale(0.88); }
+    50%  { transform: translate3d(-100px, 110px, 0) scale(1.16); }
+    100% { transform: translate3d(80px, -50px, 0) scale(0.9); }
 }
 
-@keyframes moveCyan {
+@keyframes moveAccent {
     0%   { transform: translate3d(0, 0, 0) scale(0.95); }
-    50%  { transform: translate3d(140px, -110px, 0) scale(1.22); }
-    100% { transform: translate3d(-70px, 70px, 0) scale(1.02); }
-}
-
-@keyframes moveMagenta {
-    0%   { transform: translate3d(0, 0, 0) scale(1); }
-    50%  { transform: translate3d(-100px, -90px, 0) scale(1.24); }
-    100% { transform: translate3d(80px, 110px, 0) scale(0.92); }
-}
-
-@keyframes moveAmber {
-    0%   { transform: translate3d(0, 0, 0) scale(1.05); }
-    50%  { transform: translate3d(110px, 120px, 0) scale(0.92); }
-    100% { transform: translate3d(-90px, -80px, 0) scale(1.15); }
+    50%  { transform: translate3d(120px, -90px, 0) scale(1.18); }
+    100% { transform: translate3d(-60px, 60px, 0) scale(1.02); }
 }
 
 /* Subtle Film Grain Noise */
@@ -478,39 +420,38 @@ body {
 .hero-light {
     position: absolute;
     border-radius: 50%;
-    filter: blur(100px);
     pointer-events: none;
     will-change: transform;
-    transform: translateZ(0);
+    transform: translate3d(0, 0, 0);
 }
 
 .hero-light-amber {
-    width: 480px;
-    height: 480px;
-    background: rgba(255, 106, 26, 0.35);
+    width: 520px;
+    height: 520px;
+    background: radial-gradient(circle, rgba(255, 106, 26, 0.32) 0%, rgba(255, 106, 26, 0.1) 40%, rgba(0, 0, 0, 0) 70%);
     left: -80px;
     bottom: 5%;
-    animation: moveAmber 18s infinite alternate ease-in-out;
+    animation: movePrimary 20s infinite alternate ease-in-out;
 }
 
 .hero-light-violet {
-    width: 550px;
-    height: 550px;
-    background: rgba(147, 51, 234, 0.38);
+    width: 580px;
+    height: 580px;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.34) 0%, rgba(147, 51, 234, 0.1) 42%, rgba(0, 0, 0, 0) 70%);
     right: 4%;
     top: 15%;
-    animation: movePurple 22s infinite alternate ease-in-out;
+    animation: moveSecondary 22s infinite alternate ease-in-out;
 }
 
 .hero-light-cyan {
-    width: 340px;
-    height: 340px;
-    background: rgba(56, 189, 248, 0.22);
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(56, 189, 248, 0.22) 0%, rgba(56, 189, 248, 0.06) 40%, rgba(0, 0, 0, 0) 70%);
     right: 35%;
     bottom: 10%;
 }
 
-/* Hero Art - Circles with Text in the Middle */
+/* Hero Art - Pure Futuristic Orbital Rings */
 .hero-art {
     position: absolute;
     right: 5vw;
@@ -523,7 +464,8 @@ body {
     align-items: center;
     justify-content: center;
     opacity: 0.92;
-    z-index: 2;
+    z-index: 1;
+    pointer-events: none;
 }
 
 .ring {
@@ -556,28 +498,40 @@ body {
     transform: rotate(-25deg);
 }
 
-/* Badge sitting directly in the middle / center of the circles */
-.art-badge {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
-    font: 10px 'DM Mono', monospace;
-    letter-spacing: 0.2em;
-    color: #ffffff;
-    background: rgba(8, 8, 12, 0.92);
-    backdrop-filter: blur(16px);
-    padding: 9px 20px;
+/* Flow-Based Hero Status Badge (Never Collides With Title) */
+.hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 16px;
     border-radius: 99px;
-    border: 1px solid var(--orange);
-    box-shadow: 0 0 25px rgba(255, 106, 26, 0.4), 0 8px 24px rgba(0, 0, 0, 0.7);
-    white-space: nowrap;
-    text-align: center;
+    background: rgba(14, 14, 20, 0.85);
+    border: 1px solid rgba(255, 106, 26, 0.45);
+    box-shadow: 0 0 20px rgba(255, 106, 26, 0.18), 0 4px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 18px;
+    width: fit-content;
 }
 
-.art-badge span {
-    color: var(--orange);
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+    box-shadow: 0 0 8px var(--orange);
+    display: inline-block;
+    animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.8); }
+}
+
+.badge-text {
+    font: 10px 'DM Mono', monospace;
+    letter-spacing: 0.18em;
+    color: #f7f7fa;
+    text-transform: uppercase;
 }
 
 .hero-copy {
@@ -1016,14 +970,13 @@ h2 i {
 .edu:after {
     content: '';
     position: absolute;
-    width: 200px;
-    height: 200px;
+    width: 260px;
+    height: 260px;
     border-radius: 50%;
     right: -60px;
     top: -70px;
-    background: var(--purple);
-    filter: blur(80px);
-    opacity: 0.22;
+    background: radial-gradient(circle, rgba(147, 51, 234, 0.28) 0%, rgba(147, 51, 234, 0.08) 45%, transparent 70%);
+    pointer-events: none;
 }
 
 .edu > span {
@@ -1098,8 +1051,7 @@ h2 i {
 }
 
 .service-card {
-    background: rgba(14, 14, 19, 0.7);
-    backdrop-filter: blur(16px);
+    background: #0e0e14;
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 20px;
     padding: 16px;
@@ -1107,7 +1059,7 @@ h2 i {
     flex-direction: column;
     position: relative;
     overflow: hidden;
-    transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.4s, box-shadow 0.4s;
+    transition: transform 0.35s cubic-bezier(0.2, 0.8, 0.2, 1), border-color 0.35s, box-shadow 0.35s;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
 }
 
@@ -1195,14 +1147,12 @@ h2 i {
 
 .contact-glow {
     position: absolute;
-    width: 600px;
-    height: 600px;
+    width: 680px;
+    height: 680px;
     border-radius: 50%;
     right: -180px;
     bottom: -220px;
-    background: radial-gradient(circle, #ff6a1a 0%, rgba(255, 106, 26, 0) 70%);
-    filter: blur(160px);
-    opacity: 0.2;
+    background: radial-gradient(circle, rgba(255, 106, 26, 0.22) 0%, rgba(255, 106, 26, 0.08) 40%, rgba(0, 0, 0, 0) 70%);
     pointer-events: none;
 }
 
@@ -1425,10 +1375,13 @@ footer {
         display: none;
     }
     .hero-art {
-        right: -12vw;
-        width: 70vw;
-        height: 70vw;
-        opacity: 0.5;
+        right: -10vw;
+        top: 18%;
+        width: 65vw;
+        height: 65vw;
+        opacity: 0.35;
+        z-index: 1;
+        pointer-events: none;
     }
     .hero {
         padding: 16vh 6vw 10vh;
@@ -1479,8 +1432,19 @@ footer {
         min-height: 90vh;
     }
     .hero-art {
-        top: 25%;
-        right: -25vw;
+        top: 22%;
+        right: -18vw;
+        width: 75vw;
+        height: 75vw;
+        opacity: 0.28;
+    }
+    .hero-badge {
+        padding: 5px 12px;
+        margin-bottom: 12px;
+    }
+    .hero-badge .badge-text {
+        font-size: 8.5px;
+        letter-spacing: 0.14em;
     }
     .hero h1 {
         font-size: 18vw;
